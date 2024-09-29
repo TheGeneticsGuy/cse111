@@ -4,6 +4,13 @@
 
 # DESCRIPTION
 # Create a list of strings and assign
+# the list to a variable named words.
+# EXCEEDING REQUIREMENTS ADDED:
+#   - Sentence Produce includes 2x Prepositional phrases
+#   - get_adjective function added
+#   - get_adverb function added
+#   - complex sentence structure updated to work properly wtih adjectives
+#     and adverbs, as well as 2x prepositional phrases
 
 # Imports
 import random
@@ -11,6 +18,7 @@ import random
 # the list to a variable named words.
 words = ["boy", "girl", "cat", "dog", "bird", "house"]
 
+# Returns an article if singular, or a non singular determiner if quantity is larger
 def get_determiner(quantity):
 
   """Return a randomly chosen determiner. A determiner is a word like "the", "a", "one", "some", "many".
@@ -35,6 +43,7 @@ def get_determiner(quantity):
   word = random.choice(words)
   return word
 
+# Returns a noun, be it singular or plural based on argument
 def get_noun(quantity):
     """Return a randomly chosen noun.
 
@@ -64,6 +73,7 @@ def get_noun(quantity):
     word = random.choice(words)
     return word
 
+# Returns a verb, based on singular, plural, and tense as per arguments
 def get_verb(quantity, tense):
     """Return a randomly chosen verb. If tense is "past",
   this function will return one of these ten verbs:
@@ -103,6 +113,7 @@ def get_verb(quantity, tense):
     word = random.choice(words)
     return word
 
+# Returns random preposition
 def get_preposition():
     """Return a randomly chosen preposition
   from this list of prepositions:
@@ -114,16 +125,19 @@ def get_preposition():
       "past", "to", "under", "with", "without"
   Return: a randomly chosen preposition.
   """
-    words = [ "about", "above", "across", "after", "along",
-      "around", "at", "before", "behind", "below",
-      "beyond", "by", "despite", "except", "for",
-      "from", "in", "into", "near", "of",
-      "off", "on", "onto", "out", "over",
-      "past", "to", "under", "with", "without" ]
+    words = [
+    "about", "above", "across", "after", "along",
+    "around", "at", "before", "behind", "below",
+    "beyond", "by", "despite", "except", "for",
+    "from", "in", "into", "near", "of",
+    "off", "on", "onto", "out", "over",
+    "past", "to", "under", "with", "without"
+    ]
 
     word = random.choice(words)
     return word
 
+# Returns prepositional phrase base on proper plurality
 def get_prepositional_phrase(quantity):
     """Build and return a prepositional phrase composed
     of three words: a preposition, a determiner, and a
@@ -140,7 +154,37 @@ def get_prepositional_phrase(quantity):
     phrase = f'{get_preposition()} {get_determiner(quantity)} {get_noun(quantity)}'
     return phrase
 
+def get_adjective():
+    """Returns a random chosen adjective
+    """
+    adjectives = [
+    "bright", "calm", "daring", "eager", "fierce",
+    "gentle", "happy", "jolly", "keen", "lively",
+    "mysterious", "noble", "optimistic", "peaceful",
+    "quick", "radiant", "strong", "thoughtful",
+    "unique", "vivid", "wise", "youthful", "zealous",
+    "brave", "clever"
+    ]
 
+    word = random.choice(adjectives)
+    return word
+
+def get_adverb():
+    """Returns a random chosen adverb
+    """
+    adverbs = [
+    "quickly", "silently", "boldly", "eagerly", "gently",
+    "happily", "jovially", "kindly", "lazily", "loudly",
+    "mysteriously", "nervously", "optimistically", "patiently",
+    "quietly", "rapidly", "smoothly", "thoughtfully",
+    "urgently", "vividly", "warmly", "wildly", "zealously",
+    "brightly", "bravely"
+    ]
+
+    word = random.choice(adverbs)
+    return word
+
+# Builds the final randomly generated sentence as per plurality and tense
 def make_sentence(quantity, tense):
 
     """Build and return a sentence with three words:
@@ -150,11 +194,12 @@ def make_sentence(quantity, tense):
     quantity and tense of the verb will match the number
     and tense in the quantity and tense parameters.
     """
-
-    sentence = f'{get_determiner(quantity).capitalize()} {get_noun(quantity)} {get_verb(quantity, tense)} {get_prepositional_phrase(quantity)}.'
+    # 2 Prepositional phrases added to sentence (Exceeding Requirements)
+    sentence = f'{get_determiner(quantity).capitalize()} {get_adjective()} {get_noun(quantity)} {get_verb(quantity, tense)} {get_prepositional_phrase(quantity)} {get_adverb()} {get_prepositional_phrase(quantity)}.'
     return sentence
 
-def main():
+# Runs core program including repeated print function
+def main( numSentences ):
     quantityTable = {
         "single": 1,
         "plural": 2
@@ -165,8 +210,8 @@ def main():
     sentence = ""
 
     print()
-    # Wrapping this into a for loop to run 6 times (0-5)
-    for i in range (6):
+    # Wrapping this into a for loop to run numSentences times - Example, to run 6 sentence it will be 6 (0-5)
+    for i in range (numSentences):
 
         # Changing tenses from the 4th sentence on (i == 3)
         if i == 3:
@@ -182,4 +227,4 @@ def main():
         print( sentence )
     print()
 
-main()
+main(6)
