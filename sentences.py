@@ -194,8 +194,8 @@ def make_sentence(quantity, tense):
     quantity and tense of the verb will match the number
     and tense in the quantity and tense parameters.
     """
-    # 2 Prepositional phrases added to sentence (Exceeding Requirements)
-    sentence = f'{get_determiner(quantity).capitalize()} {get_adjective()} {get_noun(quantity)} {get_verb(quantity, tense)} {get_prepositional_phrase(quantity)} {get_adverb()} {get_prepositional_phrase(quantity)}.'
+    # 2 Prepositional phrases added to sentence (Exceeding Requirements) and complex structure added
+    sentence = f'{get_determiner(quantity).capitalize()} {get_adjective()} {get_noun(quantity)} {get_prepositional_phrase(quantity)} {get_adverb()} {get_verb(quantity, tense)} {get_determiner(quantity)} {get_adjective()} {get_noun(quantity)} {get_prepositional_phrase(quantity)}.'
     return sentence
 
 # Runs core program including repeated print function
@@ -227,4 +227,4 @@ def main( numSentences ):
         print( sentence )
     print()
 
-main(6)
+main(6) # Will produce 6 sentences, but can be adjusted to any number
