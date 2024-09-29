@@ -103,18 +103,56 @@ def get_verb(quantity, tense):
     word = random.choice(words)
     return word
 
+def get_preposition():
+    """Return a randomly chosen preposition
+  from this list of prepositions:
+      "about", "above", "across", "after", "along",
+      "around", "at", "before", "behind", "below",
+      "beyond", "by", "despite", "except", "for",
+      "from", "in", "into", "near", "of",
+      "off", "on", "onto", "out", "over",
+      "past", "to", "under", "with", "without"
+  Return: a randomly chosen preposition.
+  """
+    words = [ "about", "above", "across", "after", "along",
+      "around", "at", "before", "behind", "below",
+      "beyond", "by", "despite", "except", "for",
+      "from", "in", "into", "near", "of",
+      "off", "on", "onto", "out", "over",
+      "past", "to", "under", "with", "without" ]
+
+    word = random.choice(words)
+    return word
+
+def get_prepositional_phrase(quantity):
+    """Build and return a prepositional phrase composed
+    of three words: a preposition, a determiner, and a
+    noun by calling the get_preposition, get_determiner,
+    and get_noun functions.
+    Parameter
+        quantity: an integer that determines if the
+            determiner and noun in the prepositional
+            phrase returned from this function should
+            be single or pluaral.
+
+    Return: a prepositional phrase.
+    """
+    phrase = f'{get_preposition()} {get_determiner(quantity)} {get_noun(quantity)}'
+    return phrase
+
+
 def make_sentence(quantity, tense):
 
-  """Build and return a sentence with three words:
-  a determiner, a noun, and a verb. The grammatical
-  quantity of the determiner and noun will match the
-  number in the quantity parameter. The grammatical
-  quantity and tense of the verb will match the number
-  and tense in the quantity and tense parameters.
-  """
+    """Build and return a sentence with three words:
+    a determiner, a noun, and a verb. The grammatical
+    quantity of the determiner and noun will match the
+    number in the quantity parameter. The grammatical
+    quantity and tense of the verb will match the number
+    and tense in the quantity and tense parameters.
+    """
 
-  sentence = f'{get_determiner(quantity).capitalize()} {get_noun(quantity)} {get_verb(quantity, tense)}'
-  return sentence
+    sentence = f'{get_determiner(quantity).capitalize()} {get_noun(quantity)} {get_verb(quantity, tense)} {get_prepositional_phrase(quantity)}.'
+    return sentence
 
 def main():
     quantityTable = {
