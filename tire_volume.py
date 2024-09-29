@@ -6,7 +6,7 @@ import math
 from datetime import datetime
 
 def CalcVolume ( width , aspect , diameter ):
-    
+
     return ( math.pi * (width ** 2) * aspect * (width * aspect + (2540 * diameter) ) ) / 10000000000
 
 print()
@@ -18,7 +18,7 @@ def Request_Tire_Values():
 
     return width, aspect, diameter , volume
 
-# PROVE ASSIGNMENT APPENDED 
+# PROVE ASSIGNMENT APPENDED
 date = datetime.today()
 
 # Text file tpo import
@@ -62,10 +62,10 @@ def BuildReport( width , aspect , diameter , volume ):
 # To assist with the user input, this informs the user of what tires are available.
 def View_Available_Tires():
     count = 1
+    print('Prices are from www.tiresplus.com')
     for wid , asp in price_table.items():
         for ratio, diam in asp.items():
             for diameter, priceDetails in diam.items():
-                print('Prices are from www.tiresplus.com')
                 print ( f'#{count}: Width - {wid}, AspectRatio - {ratio}, Diameter - {diameter} || Price - {priceDetails[0]}/ea, Brand - {priceDetails[1]}')
                 count += 1
 
@@ -74,7 +74,7 @@ def RunProgram():
 
     recheck = True
     phone = ""
-    
+
     while recheck:
         width, aspect, diameter , volume = Request_Tire_Values()
         print(f'The approximate volume is {volume:.2f} liters')
@@ -87,7 +87,7 @@ def RunProgram():
             while True:
                 toBuy = input(f'Would you like to buy a set of 4 tires for ${setOfFour:.2f}? (Y/N) ').lower()
                 if toBuy == 'y':
-                    phone = input('Please enter your telephone nuymber: ')
+                    phone = input('Please enter your telephone number: ')
                     recheck = False
                     break
 
@@ -120,7 +120,7 @@ def RunProgram():
                     break
                 else:
                     print(errorText)
-            
+
             # End Program
             while True:
                 user_response = input('Search For Another Tire? (Y/N) ').lower()
@@ -131,7 +131,7 @@ def RunProgram():
                     break
                 else:
                     print(errorText)
-    
+
     print()
     finalReport = BuildReport( width, aspect, diameter , volume )
 
@@ -139,6 +139,6 @@ def RunProgram():
         finalReport = f'{finalReport}, Phone - {phone}'
 
     AppendFile ( file_name , finalReport )
-    
+
 
 RunProgram()
