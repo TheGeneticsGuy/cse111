@@ -1,7 +1,13 @@
 # Author:           Aaron Topping
 # Class:            CSE 111
 # Date:             10/12/2024
-# Description:      Prove Milestone - Write and test a molar mass calculator.
+# Description:      Prove - Week 4
+# Additional Notes: I was not satisfied with the idea of only taking input for limited chemical formulas, but I wanted to be able to
+#                   handle complex formulas as well, notably formulas with nested compounds, like Ca(NO3)2. Since these are extremely common
+#                   the goal was to challenge my ability to use RegEx for pattern recognition.  So, a non-complex pattern was created, as well as a
+#                   complex. The strategy was to first go over all the elements outside of the parentheses, and then go back do the same for all within
+#                   Due to the Complexity, an additional function 'parse_formula' was added to handle this logic.
+
 
 import re       # Regular Expression parser of the formula
 
@@ -114,18 +120,71 @@ def make_periodic_table():
 
     return periodic_table_list
 
-# def parse_formula( formula ):
-#     '''
-#     Parse elements into a dictionary with the number of each element
-#     Parameters: Chemical formula (H20)
-#     Returns:    Dictionary of values of parsed formula
-#     '''
+def parse_formula( formula ):
+    '''
+    Parse elements into a dictionary with the number of each element
+    Parameters: Chemical formula (H20)
+    Returns:    Dictionary of values of parsed formula
+    '''
+    result = {}             # Initializing the empty dictionary to return at end
+    pattern_outside = ''
+    pattern_inside = ''
 
-# def calculate_molar_mass( formula ):
+    # Convert the parse data from regEx to a dictionary for easier counting
+    def buildDictionaryCounts (elements , multiplyer=1 ):
 
-#     '''
-#     Calculates molar mass by parsing the text input formula of the user
-#     '''
+        '''
+        Converts the regex list of parsed elements with number of element into the dictionary
+        Uses the global (within parent function) dictionary 'result'
+        parameters: elements(list),multiplyer(int)
+        returns: nothing
+        '''
+         # Now, we build the dictionary.
+        for element , count in elements:
+            count = int(count) if count else 1  # Since formulas without numbers following will be 1, default value needs to be one
+            if element in result:
+                result[element] += ( count * multiplyer )        # Since formulas can have multiple of same element, just add here
+            else:
+                result[element] = ( count * multiplyer )
+
+    # Setup the patterns for RegEx matching
+    # Only need to do more complex pattern matching IF formula has a parentheses
+    if '(' in formula:
+        pattern_outside = FORMULA_PATTERN_COMPLEX
+        pattern_inside = r'\(([A-Za-z0-9]+)\)(\d+)*'            # Will provide the complex pattern match what formulas inside parenthesesC
+
+    else:
+        pattern_outside = FORMULA_PATTERN
+
+    # Start with the outside
+    parsed_elements = re.findall( pattern_outside, formula )  # Adds to the list all pattern matches, the *indicates it as an optional value, so \d+ for any size number (no + means 1 digit only), and * in case no number
+
+    # First, let's count all the outside stuff
+    if parsed_elements:
+        buildDictionaryCounts(parsed_elements)
+    else:
+        print("ERROR1")
+        return result       # Did not successfully parse any elements Formula didn't match pattern
+
+    if pattern_inside != '':
+        parsed_parentheses_group = re.findall( pattern_inside, formula )
+
+        print(parsed_parentheses_group)
+        for elementGroup , count in parsed_parentheses_group:
+            print("Group: " + elementGroup)
+            if count == '':     # Edge case in case the formula is placed into parentheses incorrectly with no power. It will still work
+                count = "1"
+            parsed_elements = re.findall( pattern_outside, elementGroup )
+            if parsed_elements:
+                buildDictionaryCounts(parsed_elements , int(count))
+
+    return result
+
+def compute_molar_mass( formula ):
+
+    '''
+    Calculates molar mass by parsing the text input formula of the user
+    '''
 
 # For error checking the inputs
 def is_valid_number(number):
