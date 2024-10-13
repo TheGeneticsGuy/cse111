@@ -357,3 +357,64 @@ def main():
 # Bypass main if imported
 if __name__ == "__main__":
     main()
+
+
+#  I WROTE THIS PARSER
+# def parse_formula( formula ):
+#     '''
+#     Parse elements into a dictionary with the number of each element as per the given formula
+#     Parameters: Chemical formula (H20)
+#     Returns:    Dictionary of values of parsed formula Example H2O will return as { 'H': 2 , 'O': 1 }
+#     '''
+#     result = {}             # Initializing the empty dictionary to return at end
+#     pattern_outside = ''
+#     pattern_inside = ''
+
+#     # Convert the parse data from regEx to a dictionary for easier counting
+#     def buildDictionaryCounts (elements , multiplyer=1 ):
+
+#         '''
+#         Converts the regex list of parsed elements with number of element into the dictionary
+#         Uses the global (within parent function) dictionary 'result'
+#         parameters: elements(list),multiplyer(int)
+#         returns: nothing
+#         '''
+#          # Now, we build the dictionary.
+#         for element , count in elements:
+#             count = int(count) if count else 1  # Since formulas without numbers following will be 1, default value needs to be one
+#             if element in result:
+#                 result[element] += ( count * multiplyer )        # Since formulas can have multiple of same element, just add here
+#             else:
+#                 result[element] = ( count * multiplyer )
+
+#     # Setup the patterns for RegEx matching
+#     # Only need to do more complex pattern matching IF formula has a parentheses
+#     if '(' in formula:
+#         pattern_outside = FORMULA_PATTERN_COMPLEX
+#         pattern_inside = r'\(([A-Za-z0-9]+)\)(\d+)*'            # Will provide the complex pattern match what formulas inside parenthesesC
+
+#     else:
+#         pattern_outside = FORMULA_PATTERN
+
+#     # Start with the outside
+#     parsed_elements = re.findall( pattern_outside, formula )  # Adds to the list all pattern matches, the *indicates it as an optional value, so \d+ for any size number (no + means 1 digit only), and * in case no number
+
+#     # First, let's count all the outside stuff
+#     if parsed_elements:
+#         buildDictionaryCounts(parsed_elements)
+#     else:
+#         return result       # Did not successfully parse any elements Formula didn't match pattern
+
+#     if pattern_inside != '':
+#         parsed_parentheses_group = re.findall( pattern_inside, formula )
+
+#         print(parsed_parentheses_group)
+#         for elementGroup , count in parsed_parentheses_group:
+#             print("Group: " + elementGroup)
+#             if count == '':     # Edge case in case the formula is placed into parentheses incorrectly with no power. It will still work
+#                 count = "1"
+#             parsed_elements = re.findall( pattern_outside, elementGroup )
+#             if parsed_elements:
+#                 buildDictionaryCounts(parsed_elements , int(count))
+
+#     return result
