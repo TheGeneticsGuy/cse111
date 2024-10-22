@@ -1,0 +1,58 @@
+-- PROPOSAL BY:     Aaron Topping
+-- DATE:            10/16/2024
+-- CLASS:           CSE 111 - Week 5
+
+CSE 111 Proposal for a Student Chosen Program
+
+    (This is a proposal. All proposals are written with our best
+    knowledge at the beginning of a project. As we progress from the
+    beginning to the end of a project, we gain more knowledge, and we
+    change some of our proposed ideas. This is part of completing any
+    project and is fine.  However, we still must write a proposal so
+    that our teachers or supervisors know what we intend to do. Please
+    answer each of the following questions to the best of your
+    knowledge.)
+
+1. What is the title of your program?
+        "Name Normalizer for Auto Complete"
+
+2. What real-world problem will your program address or help to solve?
+        In multi-cultural societies, you often find proper nouns, or names, that have various non-standard English characters,
+        like the accented è or È or ú or ä and so on. This can make it difficult for people to search for a name in a database, or match a name.
+        What I want to do is preserve the name in the database correctly, but to create it so it is searchable by normalizing the letters in the name.
+        For example, let's say someone's name is "Élisabeth," a common, but sophisticated French variant, if a person searches for Elisabeth, it still shows
+        the accented name in the results of matches. Or, just partial matches, so even just searching "Elis" will show the result. It will also work
+        properly searching with accents as well.
+
+3. What will you learn from developing this program?
+        I will learn the following to be better: Importing CSV file and accessing data, manipulate strings, build lists.
+
+4. What Python modules will your program use?
+        csv
+        pytest
+        tkinter
+        I will probably use tkinter, though I am not entirely familiar with it yet. The built-in string tools likely will not require any specific imports.
+
+    (Some examples are: csv, datetime, functools, matplotlib, math,
+    pandas, pytest, random, requests, and tkinter.)
+
+5. List the names of functions you will need?
+    normalize_name
+    remove_special_characters
+    get_autocomplete_matches
+    main
+
+    (Remember that the most reusable functions don't get user input and
+    don't print results but instead have parameters and return a result.
+    Functions that get user input and print results are important and do
+    useful work but are not easily reusable.)
+
+    (Remember also that it's hard to test functions that get user input
+    and print results. It's easy to test functions that don't get user
+    input and don't print results but instead have parameters and return
+    a result. Therefore, you should write most of your program functions
+    to have parameters and return a result.)
+
+6. List the names of the test functions you will write.
+    test_normalize_name
+    test_remove_special_characters
